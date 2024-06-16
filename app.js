@@ -15,7 +15,17 @@ const apiKey = process.env.API_KEY;
 
 async function getChatGptResponse(language, code) {
     try {
-        const prompt = `Generate test cases for the following code snippet:\n\n${code} in ${language}. Only give the code for the test cases.`;
+        const prompt = `
+        Generate comprehensive unit test cases for the following code snippet written in ${language}. 
+        Ensure the test cases cover all possible edge cases and different input scenarios. 
+        Only provide the code for the test cases.
+        
+        Code Snippet:
+        \`\`\`${language}
+        ${code}
+        \`\`\`
+        `;
+        
 
         const messages = [
             { role: 'system', content: 'You are a system.' },
