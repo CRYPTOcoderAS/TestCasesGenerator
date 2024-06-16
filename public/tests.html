@@ -143,7 +143,7 @@
             <option value="c++">C++</option>
             <option value="ruby">Ruby</option>
             <option value="php">PHP</option>
-            <!-- Add more options as needed -->
+          
         </select>
         <br>
         <label for="code">Enter Your Code Snippet:</label>
@@ -155,21 +155,16 @@
 </div>
 
 <script>
-    
     function isLoggedIn() {
-      
-        return localStorage.getItem('isLoggedIn') === 'true';
+        return localStorage.getItem('token') !== null && localStorage.getItem('token') !== '';
     }
 
-    
     function logout() {
-      
-        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('token');
         alert('You have been logged out.');
         window.location.href = '/'; 
     }
 
-   
     document.addEventListener('DOMContentLoaded', () => {
         if (!isLoggedIn()) {
             logout();
@@ -205,7 +200,6 @@
         `;
     });
 
-  
     function escapeHtml(unsafe) {
         return unsafe
             .replace(/&/g, "&amp;")
