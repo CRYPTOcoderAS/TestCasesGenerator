@@ -1,15 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
-const path = require('path');   
+const path = require('path');
 const axios = require('axios');
-
-dotenv.config(); 
+const cors = require('cors'); 
+dotenv.config();
 
 const app = express();
 app.use(bodyParser.json());
-
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors()); 
 
 const apiKey = process.env.API_KEY;
 
@@ -19,7 +19,7 @@ async function getChatGptResponse(language, code) {
 
         const messages = [
             { role: 'system', content: 'You are a system.' },
-            { role: 'user', content: prompt}  
+            { role: 'user', content: prompt }
         ];
 
         console.log('Request to ChatGPT:', { model: 'gpt-3.5-turbo', messages });
@@ -39,7 +39,7 @@ async function getChatGptResponse(language, code) {
         if (response.data && response.data.choices && response.data.choices.length > 0) {
             const message = response.data.choices[0].message;
             if (message && message.content) {
-                return message.content.trim(); 
+                return message.content.trim();
             } else {
                 throw new Error('Unexpected response from ChatGPT: No message content');
             }
